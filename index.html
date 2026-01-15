@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Oráculo da Roleta</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  background: #111;
+  color: gold;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+input {
+  padding: 10px;
+  width: 80%;
+  margin: 10px 0;
+  font-size: 18px;
+}
+button {
+  padding: 12px 20px;
+  font-size: 18px;
+  background: gold;
+  border: none;
+  cursor: pointer;
+}
+#resultado {
+  margin-top: 20px;
+  font-size: 20px;
+}
+</style>
+</head>
+
+<body>
+<h1>🔮 ORÁCULO DA ROLETA</h1>
+<p>Digite os últimos números (separados por vírgula)</p>
+
+<input id="numeros" placeholder="Ex: 12, 7, 30">
+<br>
+<button onclick="analisar()">ANALISAR</button>
+
+<div id="resultado"></div>
+
+<script>
+function analisar() {
+  let nums = document.getElementById("numeros").value
+    .split(",")
+    .map(n => parseInt(n.trim()))
+    .filter(n => !isNaN(n));
+
+  if (nums.length < 3) {
+    document.getElementById("resultado").innerHTML =
+      "❌ Digite pelo menos 3 números.";
+    return;
+  }
+
+  let soma = nums.slice(-3).reduce((a,b)=>a+b,0);
+  let sugestao = soma % 2 === 0 ? "APOSTA EM PAR" : "APOSTA EM ÍMPAR";
+
+  document.getElementById("resultado").innerHTML =
+    "📊 Soma dos últimos 3: <b>" + soma +
+    "</b><br>🎯 Sugestão: <b>" + sugestao + "</b>";
+}
+</script>
+
+</body>
+</html>
